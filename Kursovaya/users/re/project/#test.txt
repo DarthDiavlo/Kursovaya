@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<MasTasks xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ListTasks>
+    <Tasks>
+      <Name>ere</Name>
+      <worker>Выбор сотрудника</worker>
+      <level>0</level>
+      <Description>Описание</Description>
+      <date>2023-05-19T14:17:54.4562491+03:00</date>
+    </Tasks>
+    <Tasks>
+      <Name>uiyjh</Name>
+      <worker>Выбор сотрудника</worker>
+      <level>0</level>
+      <Description>Описание</Description>
+      <date>2023-05-19T14:18:12.7028107+03:00</date>
+    </Tasks>
+    <Tasks>
+      <Name>Введите название</Name>
+      <worker>asdcwerr</worker>
+      <level>0</level>
+      <Description>Описание</Description>
+      <date>2023-05-22T23:43:16.0032876+03:00</date>
+    </Tasks>
+  </ListTasks>
+</MasTasks>

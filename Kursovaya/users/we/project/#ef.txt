@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<MasTasks xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ListTasks>
+    <Tasks>
+      <Name>sdfrg</Name>
+      <worker>Выбор сотрудника</worker>
+      <level>0</level>
+      <Description>Описание</Description>
+      <date>2023-05-19T13:54:37.7180863+03:00</date>
+    </Tasks>
+  </ListTasks>
+</MasTasks>

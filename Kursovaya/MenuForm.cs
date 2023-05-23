@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -27,6 +28,7 @@ namespace Kursovaya
         {
             InitializeComponent();
             Login = login;
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void MenuForm_Load(object sender, EventArgs e)
@@ -37,6 +39,8 @@ namespace Kursovaya
             menu.Size = new Size(300, 574);
             menu.BackColor = Color.Blue;
             menu.AutoScroll = true;
+            menu.MouseMove += panel_MouseMove;
+            menu.MouseDown += panel_MouseDown;
             Controls.Add(menu);
 
             //desk
@@ -44,6 +48,8 @@ namespace Kursovaya
             desk.Dock = DockStyle.Right;
             desk.Size = new Size(ClientSize.Width - menu.Width, ClientSize.Height);
             desk.AutoScroll = false;
+            desk.MouseMove += panel_MouseMove;
+            desk.MouseDown += panel_MouseDown;
             Controls.Add(desk);
 
             //login
@@ -68,7 +74,7 @@ namespace Kursovaya
             add.Dock = DockStyle.Bottom;
             add.Size = new Size(150, 50);
             add.BackColor = Color.White;
-            add.Text = "Добавить";
+            add.Text = "Добавить проект";
             add.TabIndex = 1;
             menu.Controls.Add(add);
             add.MouseClick += add_MouseClick;
@@ -139,7 +145,6 @@ namespace Kursovaya
                 if (string.IsNullOrEmpty(line)) { continue; }
                 masname = line.Split('*');
                 Label name= new Label();
-                int x ;
                 name.Location = new Point(50, y);
                 name.Size = new Size(800, 20);
                 if (y < 500)
@@ -214,13 +219,13 @@ namespace Kursovaya
             addTask.MouseClick += addTask_MouseClick;
             desk.Controls.Add(addTask);
 
-            /*Button saveTask= new Button();
+            Button saveTask = new Button();
             saveTask.Location = new Point(50, 500);
             saveTask.Size = new Size(200, 30);
-            saveTask.Text = "Сохранить изменения";
+            saveTask.Text = "Удалить проект";
             saveTask.BackColor = Color.White;
-            saveTask.MouseClick += saveTask_MouseClick;
-            desk.Controls.Add(saveTask);*/
+            saveTask.MouseClick += DelProject_MouseClick;
+            desk.Controls.Add(saveTask);
 
 
             AddRadioButton(Desserialized(Buf.Text));
@@ -281,19 +286,30 @@ namespace Kursovaya
             }
                 Serealize(ListTask);
         }
+        private void DelProject_MouseClick(object sender, MouseEventArgs e)
+        {            
+            if (MessageBox.Show(
+                "Вы точно хотите удалить проект",
+                "Подтверждение",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Information,
+                MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+            {
+                File.Delete($@"..\..\users\{Login}\project\#{NameProject}.txt");
+                MenuForm menu=new MenuForm(Login);
+                this.Close();
+                menu.Show();
+            }                        
+        }
         private void Serealize(MasTasks Listtas)
         {
             XmlSerializer formatter = new XmlSerializer(typeof(MasTasks));
-            foreach (Tasks t in Listtas.ListTasks)
+            File.Delete($@"..\..\users\{Login}\project\#{NameProject}.txt");
+            using (FileStream fs = new FileStream($@"..\..\users\{Login}\project\#{NameProject}.txt", FileMode.OpenOrCreate,FileAccess.Write))
             {
-                Console.WriteLine(t.Name);
-            }
-            using (FileStream fs = new FileStream($@"..\..\users\{Login}\project\#{NameProject}.txt", FileMode.Open,FileAccess.Write))
-            {
-                fs.Write(Encoding.Default.GetBytes("fdfdf"),0, Encoding.Default.GetBytes("fdfdf").Length);
                 formatter.Serialize(fs, Listtas);
                 MessageBox.Show("ok");
-            }
+            }                     
         }
         private MasTasks Desserialized(string NameProject)
         {
@@ -327,6 +343,20 @@ namespace Kursovaya
             AddTaskForm AddTask = new AddTaskForm(NameProject,this.Login);
             AddTask.Show();
         }
-        
+
+        Point lastPoint;
+        private void panel_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                this.Left += e.X - lastPoint.X;
+                this.Top += e.Y - lastPoint.Y;
+            }
+        }
+        private void panel_MouseDown(object sender, MouseEventArgs e)
+        {
+            lastPoint = new Point(e.X, e.Y);
+        }
+
     }
 }

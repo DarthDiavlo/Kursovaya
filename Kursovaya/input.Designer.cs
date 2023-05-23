@@ -57,6 +57,8 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(615, 574);
             this.panel1.TabIndex = 0;
+            this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
+            this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
             // 
             // check2
             // 
@@ -107,7 +109,6 @@
             this.button1.TabIndex = 6;
             this.button1.Text = "Регистрация";
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             this.button1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.button1_MouseClick);
             // 
             // label1

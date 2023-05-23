@@ -15,7 +15,6 @@ namespace Kursovaya
     public partial class AddWorkerForm : Form
     {
         public string Login;
-        int y = 0;
         public AddWorkerForm(string login)
         {
             InitializeComponent();

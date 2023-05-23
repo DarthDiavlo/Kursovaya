@@ -74,7 +74,6 @@ namespace Kursovaya
             {
                 work += $"*{it}";
             }
-            string test = null;
             RewriteLine(index,work);
         }
         private void RewriteLine(int lineIndex, string newValue)
@@ -89,9 +88,13 @@ namespace Kursovaya
                 {
                     string line = sr.ReadLine();
                     if (lineIndex == i)
+                    {
                         sw.WriteLine(newValue);
+                    }
                     else
-                        sw.WriteLine(line);
+                    {
+                        sw.WriteLine(line);                                                
+                    }
                     i++;
                 }
             }

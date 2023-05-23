@@ -19,6 +19,7 @@ namespace Kursovaya
         {
             InitializeComponent();
             check2.Hide();
+            this.StartPosition= FormStartPosition.CenterScreen;
         }
        
         private void textBox2_Click(object sender, EventArgs e)
@@ -81,10 +82,19 @@ namespace Kursovaya
                 check2.Hide();
             }
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        Point lastPoint;
+        private void panel1_MouseMove(object sender, MouseEventArgs e)
         {
-
+            if (e.Button == MouseButtons.Left)
+            {
+                this.Left+= e.X-lastPoint.X;
+                this.Top+= e.Y-lastPoint.Y;
+            }
         }
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            lastPoint = new Point(e.X, e.Y);
+        }
+
     }
 }

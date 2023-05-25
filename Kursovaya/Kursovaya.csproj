@@ -75,12 +75,6 @@
     <Compile Include="DelWorkerForm.Designer.cs">
       <DependentUpon>DelWorkerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GantaForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GantaForm.Designer.cs">
-      <DependentUpon>GantaForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="input.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,9 +112,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DelWorkerForm.resx">
       <DependentUpon>DelWorkerForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GantaForm.resx">
-      <DependentUpon>GantaForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="input.resx">
       <DependentUpon>input.cs</DependentUpon>

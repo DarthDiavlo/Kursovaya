@@ -23,6 +23,8 @@ namespace Kursovaya
         public string Login;
         Panel menu;
         Panel desk;
+        Panel hat;
+        DataGridView ganta;
         public string NameProject;
         public MenuForm(string login)
         {
@@ -61,7 +63,7 @@ namespace Kursovaya
 
             TabPage tabPage1 = new TabPage();
             tabPage1.Text = "tabPage1";
-            tabPage1.Size = new System.Drawing.Size(256, 214);
+            tabPage1.Size = new Size(256, 214);
             tabPage1.TabIndex = 0;
 
             tb.Controls.Add(tabPage1);
@@ -118,6 +120,13 @@ namespace Kursovaya
             team.BackColor = Color.White;
             team.MouseClick += TeamAdd_MouseClick;
             menu.Controls.Add(team);
+            
+            Button diagramma= new Button();
+            diagramma.Location = new Point(20, 180);
+            diagramma.Size = new Size(260, 30);
+            diagramma.Text = "диаграмма";
+            diagramma.BackColor = Color.White;
+            diagramma.MouseClick += TeamAdd_MouseClick;
 
             addButton(this.Login);
         }
@@ -226,27 +235,195 @@ namespace Kursovaya
             NameProject = Buf.Text;
 
             Button addTask = new Button();
-            addTask.Location = new Point(400, 500);
-            addTask.Size = new Size(200, 30);
+            addTask.Location = new Point(500, 620);
+            addTask.Size = new Size(300, 50);            
             addTask.Text = "Добавить задачу";
+            addTask.Font = new Font("Times New Roman", 16);
             addTask.BackColor = Color.White;
             addTask.MouseClick += addTask_MouseClick;
             desk.Controls.Add(addTask);
 
             Button saveTask = new Button();
-            saveTask.Location = new Point(50, 500);
-            saveTask.Size = new Size(200, 30);
+            saveTask.Location = new Point(50, 620);
+            saveTask.Size = new Size(300, 50);
             saveTask.Text = "Удалить проект";
+            saveTask.Font=  new Font("Times New Roman", 16);
             saveTask.BackColor = Color.White;
             saveTask.MouseClick += DelProject_MouseClick;
             desk.Controls.Add(saveTask);
 
+            hat= new Panel();
+            hat.Location = new Point(0, 50);
+            hat.Size = new Size(ClientSize.Width - menu.Width, ClientSize.Height-100);
+            desk.Controls.Add(hat);
 
-            AddRadioButton(Desserialized(Buf.Text));
+            Button diagramma = new Button();
+            diagramma.Location = new Point(50, 10);
+            diagramma.Size = new Size(120, 30);
+            diagramma.Text = "Диаграмма";
+            diagramma.BackColor = Color.White;
+            diagramma.MouseClick += Diagramma_MouseClick;
+            desk.Controls.Add(diagramma);
+            
+            Button spisok= new Button();
+            spisok.Location = new Point(180, 10);
+            spisok.Size = new Size(120, 30);
+            spisok.Text = "Список";
+            spisok.BackColor = Color.White;
+            spisok.MouseClick += spisok_MouseClick;
+            desk.Controls.Add(spisok);
+
+            AddRadioButton(Desserialized(NameProject));
         }
+        private void spisok_MouseClick(object sender, MouseEventArgs e)
+        {
+            hat.Controls.Clear();
+            AddRadioButton(Desserialized(NameProject));
+        }
+        private void Diagramma_MouseClick(object sender, MouseEventArgs e)
+        {
+            hat.Controls.Clear();
+            ganta= new DataGridView();
+            ganta.AllowUserToAddRows = false;
+            ganta.AllowUserToDeleteRows = false;
+            ganta.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            ganta.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
+            ganta.BackgroundColor = SystemColors.ActiveCaption;
+            ganta.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            ganta.Dock = DockStyle.Fill;
+            ganta.GridColor = Color.Black;
+            ganta.BackgroundColor = Color.White; ganta.BorderStyle = BorderStyle.None;
+            ganta.Location = new Point(0, 0);
+            ganta.Name = "dataGridView1";
+            ganta.ReadOnly = true;
+            ganta.RowHeadersWidth = 200;
+            ganta.RowTemplate.Height = 24;
+            ganta.Size = new Size(hat.Width, hat.Height-70);
+            hat.Controls.Add(ganta);
+            ganta.ColumnHeadersHeight = 200;
+            ganta.SelectionChanged += ganta_SelectionChanged;
+            addrows(NameProject);
+        }
+        private void addrows(string Np)
+        {
+            ganta.ClearSelection();
+            int i = 0;
+            MasTasks mt = Desserialized(Np);
+            addColumn(mt);
+            foreach (Tasks t in mt.ListTasks)
+            {
+                ganta.Rows.Add();
+                ganta.Rows[i].HeaderCell.Value = string.Format(t.Name, "0");
+                i++;
+            }
+            paintingСells(mt);
+        }
+        private void addColumn(MasTasks mt)
+        {
+            int i = 0;
+            DateTime[] mas = new DateTime[mt.ListTasks.Count()];
+            DateTime[] masSt = new DateTime[mt.ListTasks.Count()];
+            foreach (Tasks t in mt.ListTasks)
+            {
+                mas[i] = t.date.Date;
+                masSt[i] = t.dateSt.Date;
+                i++;
+            }
+            sorting(mas, mas.Length);
+            sorting(masSt, masSt.Length);
+            List<DateTime> allDates = new List<DateTime>();
+            for (DateTime date = masSt[0].Date; date <= mas[masSt.Length - 1].Date; date = date.AddDays(1))
+            { allDates.Add(date); }
+            foreach (DateTime t in allDates)
+            {
+                DataGridViewColumn column = new DataGridViewColumn();
+                column.HeaderText = t.ToString("dd/MM");
+                column.CellTemplate = new DataGridViewTextBoxCell();
+                ganta.Columns.Add(column);
+            }
+        }
+
+        private void paintingСells(MasTasks mt)
+        {
+            Dictionary<string, List<string>> dict = new Dictionary<string, List<string>>();
+            foreach (Tasks t in mt.ListTasks)
+            {
+                List<string> list = new List<string>();
+                for (DateTime date = t.dateSt.Date; date <= t.date.Date; date = date.AddDays(1))
+                { list.Add(date.ToString("dd/MM")); }
+                dict.Add(t.Name, list);
+            }
+            Random random = new Random();
+            for (int i = 0; i < ganta.Rows.Count; i++)
+            {
+                int k = 0;
+                List<string> list = dict[ganta.Rows[i].HeaderCell.Value.ToString()];
+                Color color = Color.FromArgb(random.Next(0, 255), random.Next(0, 255), random.Next(0, 255));
+                for (int j = 0; j < ganta.Columns.Count; j++)
+                {
+                    if (list[k] == ganta.Columns[j].HeaderCell.Value.ToString())
+                    {
+                        ganta.Rows[i].Cells[j].Style.BackColor = color;
+                        k++;
+                        if (k == dict[$"{ganta.Rows[i].HeaderCell.Value}"].Count())
+                        {
+                            k--;
+                        }
+                    }
+                }
+            }
+        }
+        private int AddPyramid(DateTime[] mas, int i, int N)
+        {
+            int imax;
+            DateTime buf;
+            if ((2 * i + 2) < N)
+            {
+                if (mas[2 * i + 1] < mas[2 * i + 2]) imax = 2 * i + 2;
+                else imax = 2 * i + 1;
+            }
+            else imax = 2 * i + 1;
+            if (imax >= N) return i;
+            if (mas[i] < mas[imax])
+            {
+                buf = mas[i];
+                mas[i] = mas[imax];
+                mas[imax] = buf;
+                if (imax < N / 2) i = imax;
+            }
+            return i;
+        }
+        private void sorting(DateTime[] mas, int len)
+        {
+            for (int i = len / 2 - 1; i >= 0; --i)
+            {
+                long prev_i = i;
+                i = AddPyramid(mas, i, len);
+                if (prev_i != i) ++i;
+            }
+            DateTime buf;
+            for (int k = len - 1; k > 0; --k)
+            {
+                buf = mas[0];
+                mas[0] = mas[k];
+                mas[k] = buf;
+                int i = 0, prev_i = -1;
+                while (i != prev_i)
+                {
+                    prev_i = i;
+                    i = AddPyramid(mas, i, k);
+                }
+            }
+        }
+        private void ganta_SelectionChanged(object sender, EventArgs e)
+        {
+            if (MouseButtons != System.Windows.Forms.MouseButtons.None)
+                ((DataGridView)sender).CurrentCell = null;
+        }
+
         private void AddRadioButton(MasTasks Listtast)
         {
-            int y = 20;
+            int y = 40;
             foreach(Tasks t in Listtast.ListTasks)
             {
                 RadioButton rb= new RadioButton();
@@ -273,7 +450,7 @@ namespace Kursovaya
                 }
                 rb.Font= new Font("Times New Roman", 14);
                 rb.MouseClick += rb_MouseClick;
-                desk.Controls.Add(rb);
+                hat.Controls.Add(rb);
             }
         }
 
@@ -296,6 +473,8 @@ namespace Kursovaya
             ListTask.ListTasks.Remove(buffer);
             Serealize(ListTask);
         }
+
+        
         private void DelProject_MouseClick(object sender, MouseEventArgs e)
         {            
             if (MessageBox.Show(

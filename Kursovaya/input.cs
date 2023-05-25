@@ -40,12 +40,9 @@ namespace Kursovaya
 
         private void button1_MouseClick(object sender, MouseEventArgs e)
         {
-            /*this.Hide();
-            registrationForm registrationForm= new registrationForm();
-            registrationForm.Show();*/
             this.Hide();
-            GantaForm gf=new GantaForm();
-            gf.Show();
+            registrationForm registrationForm = new registrationForm();
+            registrationForm.Show();
         }
 
         string check(string login,string passwond)

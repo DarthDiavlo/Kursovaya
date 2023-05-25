@@ -43,7 +43,7 @@
             this.ChooseProject.FormattingEnabled = true;
             this.ChooseProject.Location = new System.Drawing.Point(69, 173);
             this.ChooseProject.Name = "ChooseProject";
-            this.ChooseProject.Size = new System.Drawing.Size(306, 174);
+            this.ChooseProject.Size = new System.Drawing.Size(306, 172);
             this.ChooseProject.TabIndex = 0;
             // 
             // panel1
@@ -53,7 +53,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(441, 80);
+            this.panel1.Size = new System.Drawing.Size(434, 80);
             this.panel1.TabIndex = 1;
             // 
             // label1
@@ -100,7 +100,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(441, 477);
+            this.ClientSize = new System.Drawing.Size(434, 477);
             this.Controls.Add(this.OutBut);
             this.Controls.Add(this.AddBut);
             this.Controls.Add(this.NameText);

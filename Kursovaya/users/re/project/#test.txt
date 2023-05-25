@@ -2,18 +2,28 @@
 <MasTasks xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ListTasks>
     <Tasks>
-      <Name>акка</Name>
-      <worker>Выбор сотрудника</worker>
-      <level>3</level>
-      <Description>Описание</Description>
-      <date>2023-05-23T15:47:26.700548+03:00</date>
-    </Tasks>
-    <Tasks>
-      <Name>u6u</Name>
+      <Name>rerer</Name>
       <worker>Выбор сотрудника</worker>
       <level>0</level>
-      <Description>6u</Description>
-      <date>2023-05-23T16:05:02.2418612+03:00</date>
+      <Description>Описание</Description>
+      <date>2023-05-25T18:07:00.8190576+03:00</date>
+      <dateSt>2023-05-24T18:07:00</dateSt>
+    </Tasks>
+    <Tasks>
+      <Name>Введите название</Name>
+      <worker>Выбор сотрудника</worker>
+      <level>0</level>
+      <Description>Описание</Description>
+      <date>2023-06-01T18:14:04</date>
+      <dateSt>2023-05-31T18:14:04</dateSt>
+    </Tasks>
+    <Tasks>
+      <Name>erererer</Name>
+      <worker>Выбор сотрудника</worker>
+      <level>0</level>
+      <Description>Описание</Description>
+      <date>2023-05-25T18:17:43.8436302+03:00</date>
+      <dateSt>2023-05-23T18:17:43</dateSt>
     </Tasks>
   </ListTasks>
 </MasTasks>

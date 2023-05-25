@@ -37,13 +37,13 @@ namespace Kursovaya
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1223, 683);
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientSize = new System.Drawing.Size(1924, 900);
             this.Name = "MenuForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Прога";
             this.Load += new System.EventHandler(this.MenuForm_Load);
             this.ResumeLayout(false);
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-
 
         }
 

@@ -18,20 +18,21 @@ namespace Kursovaya
         public int level;
         public string Description;
         public DateTime date;
-        public Tasks()
-        {
-        }
-        public Tasks(string name, string worker, int level, string description, DateTime date)
+        public DateTime dateSt;
+
+        public Tasks() { }
+        public Tasks(string name, string worker, int level, string description, DateTime date, DateTime dateSt)
         {
             Name = name;
             this.worker = worker;
             this.level = level;
             Description = description;
             this.date = date;
+            this.dateSt = dateSt;
         }
         public string Writer()
         {
-            return ($"{this.Name}; {this.worker}; {this.date}");
+            return ($"{this.Name}; {this.worker}; {this.date.ToString("dd/MM/yyyy")}");
         }
     }
 }

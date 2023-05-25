@@ -52,6 +52,20 @@ namespace Kursovaya
             desk.MouseDown += panel_MouseDown;
             Controls.Add(desk);
 
+            TabControl tb= new TabControl();
+            tb.Dock = DockStyle.Right;
+            tb.Size = new Size(10,10);
+            tb.MouseMove += panel_MouseMove;
+            tb.MouseDown += panel_MouseDown;
+            desk.Controls.Add(tb);
+
+            TabPage tabPage1 = new TabPage();
+            tabPage1.Text = "tabPage1";
+            tabPage1.Size = new System.Drawing.Size(256, 214);
+            tabPage1.TabIndex = 0;
+
+            tb.Controls.Add(tabPage1);
+
             //login
             PictureBox pictureBox = new PictureBox();
             pictureBox.Location = new Point(20, 20);
@@ -266,25 +280,21 @@ namespace Kursovaya
         private void rb_MouseClick(object sender, MouseEventArgs e)
         {
             RadioButton Buf = (RadioButton)sender;
-            MasTasks ListTask= new MasTasks();
+            MasTasks ListTask;
             ListTask = Desserialized(NameProject);
             string[] masstr = { "; " };
             string[] mas = Buf.Text.Split(masstr, StringSplitOptions.RemoveEmptyEntries);
             Tasks buffer= new Tasks();
             foreach (Tasks t in ListTask.ListTasks)
-            {
-                if (String.Equals(t.Name, mas[0]) && String.Equals(t.worker, mas[1]) && String.Equals(t.date.ToString(), mas[2]))
+            {               
+                if (String.Equals(t.Name, mas[0]) && String.Equals(t.worker, mas[1]) && String.Equals(t.date.ToString("dd/MM/yyyy"), mas[2]))
                 {                    
                     buffer= t;                   
                     Buf.Dispose();
                 }
             }
             ListTask.ListTasks.Remove(buffer);
-            foreach (Tasks t in ListTask.ListTasks)
-            { 
-                Console.WriteLine(t.Name);
-            }
-                Serealize(ListTask);
+            Serealize(ListTask);
         }
         private void DelProject_MouseClick(object sender, MouseEventArgs e)
         {            

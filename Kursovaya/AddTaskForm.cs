@@ -20,6 +20,7 @@ namespace Kursovaya
         TextBox Description;
         ComboBox Worker;
         DateTimePicker date;
+        DateTimePicker dateSt;
         string Login;
         string NameProject;
         int level=0;
@@ -64,6 +65,11 @@ namespace Kursovaya
             date.Size = new Size(250, 30);
             Controls.Add(date);
 
+            dateSt = new DateTimePicker();
+            dateSt.Location = new Point(50, 145);
+            dateSt.Size = new Size(250, 30);
+            Controls.Add(dateSt);
+
             //Сотрудник
             Worker = new ComboBox();
             Worker.Text = "Выбор сотрудника";
@@ -74,7 +80,7 @@ namespace Kursovaya
 
             //сложность
             RadioButton Easy=new RadioButton();
-            Easy.Location = new Point(100, 150);
+            Easy.Location = new Point(100, 170);
             Easy.Size = new Size(200, 30);
             Easy.Text = "Легкая";
             Easy.Font = new Font("Times New Roman", 14);
@@ -82,7 +88,7 @@ namespace Kursovaya
             Controls.Add(Easy);
 
             RadioButton Medium = new RadioButton();
-            Medium.Location = new Point(100, 180);
+            Medium.Location = new Point(100, 200);
             Medium.Size = new Size(200, 30);
             Medium.Text = "Средняя";
             Medium.Font = new Font("Times New Roman", 14);
@@ -90,7 +96,7 @@ namespace Kursovaya
             Controls.Add(Medium);
 
             RadioButton Hard = new RadioButton();
-            Hard.Location = new Point(100, 210);
+            Hard.Location = new Point(100, 230);
             Hard.Size = new Size(200, 30);
             Hard.Text = "Сложная";
             Hard.Font = new Font("Times New Roman", 14);
@@ -101,7 +107,7 @@ namespace Kursovaya
             Description= new TextBox();
             Description.Text = "Описание";
             Description.Multiline= true;
-            Description.Location = new Point(50,240);
+            Description.Location = new Point(50,260);
             Description.Size= new Size(250, 120);
             Description.MouseClick += Description_MouseClick;
             Controls.Add(Description);
@@ -168,7 +174,7 @@ namespace Kursovaya
         }
         private void ButAdd_MouseClick(object sender, MouseEventArgs e)
         {
-            Tasks Newtask = new Tasks(NameTask.Text,Worker.Text,level,Description.Text,date.Value);
+            Tasks Newtask = new Tasks(NameTask.Text,Worker.Text,level,Description.Text,date.Value,dateSt.Value);
             MasTasks Listtas = new MasTasks();
             Listtas= Desserialized(Listtas);
             Listtas.ListTasks.Add(Newtask);

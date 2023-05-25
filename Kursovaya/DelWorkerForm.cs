@@ -23,11 +23,12 @@ namespace Kursovaya
             DataEntry();
             AddBut.Text = "Изменить";
             OutBut.Text = "Удалить";
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
         private void DataEntry()
         {
             NameText.Text = Name;
-            StreamReader sr = new StreamReader($"../../users/{Login}/worker.txt");
+            StreamReader sr = new StreamReader($"users/{Login}/worker.txt");
             string line;
             string[] masproject;
             while ((line = sr.ReadLine()) != null)
@@ -55,7 +56,7 @@ namespace Kursovaya
 
         override internal void AddBut_MouseClick(object sender, MouseEventArgs e)
         {
-            StreamReader sr = new StreamReader($"../../users/{Login}/worker.txt");
+            StreamReader sr = new StreamReader($"users/{Login}/worker.txt");
             string line;
             string[] masproject;
             int index=0;
@@ -75,11 +76,15 @@ namespace Kursovaya
                 work += $"*{it}";
             }
             RewriteLine(index,work);
+            MenuForm menu = new MenuForm(Login);
+            menu.Show();
+            MessageBox.Show("Сотрудник изменён");
+            this.Close();
         }
         private void RewriteLine(int lineIndex, string newValue)
         {
             int i = 0;
-            string path = $"../../users/{Login}/worker.txt";
+            string path = $"users/{Login}/worker.txt";
             string tempPath = path + ".txt";
             using (StreamReader sr = new StreamReader(path)) // читаем
             using (StreamWriter sw = new StreamWriter(tempPath)) // и сразу же пишем во временный файл
@@ -103,7 +108,7 @@ namespace Kursovaya
         }
         override internal void OutBut_MouseClick(object sender, MouseEventArgs e)
         {
-            StreamReader sr = new StreamReader($"../../users/{Login}/worker.txt");
+            StreamReader sr = new StreamReader($"users/{Login}/worker.txt");
             string line;
             string[] masproject;
             int index = 0;
@@ -119,6 +124,11 @@ namespace Kursovaya
             sr.Close();
             string test = null;
             RewriteLine(index, test);
+            MenuForm menu= new MenuForm(Login);
+            menu.Show();
+            MessageBox.Show("Сотрудник удалён");
+            this.Close();
+            
         }
     }
 }

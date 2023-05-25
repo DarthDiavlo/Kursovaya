@@ -37,7 +37,7 @@ namespace Kursovaya
             head= new Panel();
             head.Dock= DockStyle.Top;
             head.Size = new Size(1, 50);
-            head.BackColor= Color.Black;
+            head.BackColor= Color.FromArgb(40, 122, 113); ;
             Controls.Add(head);
 
             //label
@@ -130,7 +130,7 @@ namespace Kursovaya
         }
         private void WorkerAdd(ComboBox Worker)
         {
-            StreamReader sr = new StreamReader($@"..\..\users\{Login}\worker.txt");
+            StreamReader sr = new StreamReader($@"users\{Login}\worker.txt");
             string line;
             string[] mas;
             while ((line = sr.ReadLine()) != null)
@@ -179,15 +179,13 @@ namespace Kursovaya
             Listtas= Desserialized(Listtas);
             Listtas.ListTasks.Add(Newtask);
             Serealize(Listtas);
-            MenuForm menu = new MenuForm(Login);
-            menu.Show();
-            this.Close();
+            MessageBox.Show("Задача добавлена");
         }
         private void Serealize(MasTasks Listtas)
         {
             MasTasks newList = Listtas;
             XmlSerializer formatter = new XmlSerializer(typeof(MasTasks));            
-            using (FileStream fs = new FileStream($@"..\..\users\{Login}\project\#{NameProject}.txt",FileMode.Open))
+            using (FileStream fs = new FileStream($@"users\{Login}\project\#{NameProject}.txt",FileMode.Open))
             {
                 formatter.Serialize(fs, newList);
             }
@@ -195,9 +193,9 @@ namespace Kursovaya
         private MasTasks Desserialized(MasTasks Listtast)
         {
             XmlSerializer formatter = new XmlSerializer(typeof(MasTasks));
-            using (FileStream fs = new FileStream($@"..\..\users\{Login}\project\#{NameProject}.txt", FileMode.Open))
+            using (FileStream fs = new FileStream($@"users\{Login}\project\#{NameProject}.txt", FileMode.Open))
             {
-                if (new FileInfo($@"..\..\users\{Login}\project\#{NameProject}.txt").Length != 0)
+                if (new FileInfo($@"users\{Login}\project\#{NameProject}.txt").Length != 0)
                 {
                     Listtast = (MasTasks)formatter.Deserialize(fs);
                 }

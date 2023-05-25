@@ -1,4 +1,6 @@
-﻿namespace Kursovaya
+﻿using System.Drawing;
+
+namespace Kursovaya
 {
     partial class AddWorkerForm
     {
@@ -41,14 +43,14 @@
             // 
             this.ChooseProject.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ChooseProject.FormattingEnabled = true;
-            this.ChooseProject.Location = new System.Drawing.Point(69, 173);
+            this.ChooseProject.Location = new System.Drawing.Point(70, 171);
             this.ChooseProject.Name = "ChooseProject";
             this.ChooseProject.Size = new System.Drawing.Size(306, 172);
             this.ChooseProject.TabIndex = 0;
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(122)))), ((int)(((byte)(113)))));
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -59,17 +61,18 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(64, 23);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label1.Location = new System.Drawing.Point(38, 24);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(321, 31);
+            this.label1.Size = new System.Drawing.Size(370, 36);
             this.label1.TabIndex = 0;
             this.label1.Text = "Добавление сотрудника";
             // 
             // NameText
             // 
             this.NameText.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.NameText.Location = new System.Drawing.Point(60, 101);
+            this.NameText.Location = new System.Drawing.Point(70, 100);
             this.NameText.Name = "NameText";
             this.NameText.Size = new System.Drawing.Size(306, 26);
             this.NameText.TabIndex = 2;
@@ -88,7 +91,7 @@
             // 
             // OutBut
             // 
-            this.OutBut.Location = new System.Drawing.Point(286, 394);
+            this.OutBut.Location = new System.Drawing.Point(282, 394);
             this.OutBut.Name = "OutBut";
             this.OutBut.Size = new System.Drawing.Size(110, 45);
             this.OutBut.TabIndex = 4;

@@ -13,21 +13,18 @@ using System.Windows.Forms;
 namespace Kursovaya
 {
     public partial class input : Form
-    {
-       
+    {       
         public input()
         {
             InitializeComponent();
             check2.Hide();
-            this.StartPosition= FormStartPosition.CenterScreen;
-        }
-       
+            StartPosition= FormStartPosition.CenterScreen;
+        }       
         private void textBox2_Click(object sender, EventArgs e)
         {
             Password.Clear();
             Password.UseSystemPasswordChar = true;
         }
-
         private void textBox1_Click(object sender, EventArgs e)
         {
             Login.Clear();
@@ -47,7 +44,7 @@ namespace Kursovaya
 
         string check(string login,string passwond)
         {
-            string filepath = @"..\..\users.txt";
+            string filepath = @"users.txt";
             StreamReader sr = new StreamReader(filepath);
             string line;
             string[] mas = new string[2];

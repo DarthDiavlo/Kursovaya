@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 
 namespace Kursovaya
@@ -31,6 +32,7 @@ namespace Kursovaya
             InitializeComponent();
             Login = login;
             this.StartPosition = FormStartPosition.CenterScreen;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
         }
 
         private void MenuForm_Load(object sender, EventArgs e)
@@ -39,7 +41,7 @@ namespace Kursovaya
             menu = new Panel();
             menu.Dock = DockStyle.Left;
             menu.Size = new Size(300, 574);
-            menu.BackColor = Color.Blue;
+            menu.BackColor = Color.FromArgb(40, 122, 113);
             menu.AutoScroll = true;
             menu.MouseMove += panel_MouseMove;
             menu.MouseDown += panel_MouseDown;
@@ -53,27 +55,22 @@ namespace Kursovaya
             desk.MouseMove += panel_MouseMove;
             desk.MouseDown += panel_MouseDown;
             Controls.Add(desk);
-
-            TabControl tb= new TabControl();
-            tb.Dock = DockStyle.Right;
-            tb.Size = new Size(10,10);
-            tb.MouseMove += panel_MouseMove;
-            tb.MouseDown += panel_MouseDown;
-            desk.Controls.Add(tb);
-
-            TabPage tabPage1 = new TabPage();
-            tabPage1.Text = "tabPage1";
-            tabPage1.Size = new Size(256, 214);
-            tabPage1.TabIndex = 0;
-
-            tb.Controls.Add(tabPage1);
+            
+            PictureBox close=new PictureBox();
+            close.Location=new Point(menu.Width-25, 7);
+            close.Size = new Size(20,20);
+            close.ImageLocation = @"images\close.png";
+            close.SizeMode = PictureBoxSizeMode.StretchImage;
+            close.MouseClick += Close_MouseClick;
+            close.Cursor= Cursors.Hand;
+            menu.Controls.Add(close);
 
             //login
             PictureBox pictureBox = new PictureBox();
             pictureBox.Location = new Point(20, 20);
             pictureBox.Size = new Size(50, 50);
             pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox.ImageLocation = @"..\..\images\user.png";
+            pictureBox.ImageLocation = @"images\user.png";
             menu.Controls.Add(pictureBox);
 
             //ник нейм пользователя
@@ -81,7 +78,7 @@ namespace Kursovaya
             Login.Location = new Point(80, 30);
             Login.Size = new Size(150, 30);
             Login.Text = this.Login;
-            Login.Font = new Font("Times New Roman", 16);
+            Login.Font = new Font("Srbija Sans", 16);
             Login.ForeColor = Color.White;
             menu.Controls.Add(Login);
 
@@ -91,7 +88,9 @@ namespace Kursovaya
             add.Size = new Size(150, 50);
             add.BackColor = Color.White;
             add.Text = "Добавить проект";
+            add.Font = new Font("Srbija Sans", 16);
             add.TabIndex = 1;
+            add.Cursor = Cursors.Hand;
             menu.Controls.Add(add);
             add.MouseClick += add_MouseClick;
 
@@ -101,40 +100,41 @@ namespace Kursovaya
             task.Size = new Size(260, 30);
             task.Text = "Мои задачи";
             task.BackColor = Color.White;
+            task.Font = new Font("Srbija Sans", 10);
+            task.Cursor = Cursors.Hand;
             task.MouseClick += MyTask_MouseClick;
             menu.Controls.Add(task);
 
             // отчёты
-            Button reports = new Button();
+            /*Button reports = new Button();
             reports.Location = new Point(20, 140);
             reports.Size = new Size(260, 30);
             reports.Text = "отчёты";
             reports.BackColor = Color.White;
-            menu.Controls.Add(reports);
+            menu.Controls.Add(reports);*/
 
             // команда
             Button team = new Button();
-            team.Location = new Point(20, 180);
+            team.Location = new Point(20, 140);
             team.Size = new Size(260, 30);
             team.Text = "команда";
+            team.Font = new Font("Srbija Sans", 10);
             team.BackColor = Color.White;
-            team.MouseClick += TeamAdd_MouseClick;
+            team.Cursor = Cursors.Hand;
+            team.MouseClick += TeamAdd_MouseClick; 
             menu.Controls.Add(team);
             
-            Button diagramma= new Button();
-            diagramma.Location = new Point(20, 180);
-            diagramma.Size = new Size(260, 30);
-            diagramma.Text = "диаграмма";
-            diagramma.BackColor = Color.White;
-            diagramma.MouseClick += TeamAdd_MouseClick;
-
             addButton(this.Login);
+        }
+        private void Close_MouseClick(object sender, MouseEventArgs e)
+        {
+           System.Windows.Forms.Application.Exit();
         }
         private void MyTask_MouseClick(object sender, MouseEventArgs e)
         {
             desk.Controls.Clear();
             MasTasks tasks= new MasTasks();
-            foreach (string file in Directory.EnumerateFiles($"../../users/{Login}/project", "*", SearchOption.AllDirectories))
+            foreach (string file in Directory.EnumerateFiles($"users/{Login}/project", "*", SearchOption.AllDirectories))
             {
                 foreach(Tasks t in Desserialized(file, 0).ListTasks)
                 {
@@ -144,22 +144,22 @@ namespace Kursovaya
                     }
                 }
             }
-            AddRadioButton(tasks);
+            AddRadioButton(tasks,desk);
         }
         private void TeamAdd_MouseClick(object sender, MouseEventArgs e)
         {
             desk.Controls.Clear();
 
             Button addTask = new Button();
-            addTask.Location = new Point(400, 500);
-            addTask.Size = new Size(200, 30);
+            addTask.Location = new Point(500, 620);
+            addTask.Size = new Size(300, 50);
             addTask.Text = "Добавить сотрудника";
             addTask.BackColor = Color.White;
+            addTask.Font = new Font("Srbija Sans", 16);
             addTask.MouseClick += addWorker_MouseClick;
             desk.Controls.Add(addTask);
 
-
-            StreamReader sr = new StreamReader($"../../users/{Login}/worker.txt");
+            StreamReader sr = new StreamReader($"users/{Login}/worker.txt");
             string line;
             string[] masname;
             int y = 20;
@@ -179,16 +179,30 @@ namespace Kursovaya
                     y = 515;
                 }
                 name.Text = masname[0];
-                name.Font = new Font("Times New Roman", 14);
+                name.Font = new Font("Srbija Sans", 14);
                 name.MouseClick += DeleteWorker_MouseClick;
+                name.Cursor = Cursors.Hand;
+                name.MouseHover += name_input_MouseHover;
+                name.MouseLeave += name_MouseLeave;
                 desk.Controls.Add(name);
             }
             sr.Close();
         }
+        private void name_input_MouseHover(object sender, EventArgs e)
+        {
+            Label name = (Label)sender;
+            name.ForeColor = Color.Blue;
+        }
+        private void name_MouseLeave(object sender, EventArgs e)
+        {
+            Label name = (Label)sender;
+            name.ForeColor = Color.Black; // ставим черный цвет текста
+        }
         private void DeleteWorker_MouseClick(object sender, MouseEventArgs e)
         {
-            Label buf=(Label)sender;
+            Label buf=(Label)sender;            
             DelWorkerForm form = new DelWorkerForm(buf.Text, Login);
+            this.Close();
             form.Show();
         }
         private void addWorker_MouseClick(object sender, MouseEventArgs e)
@@ -199,8 +213,8 @@ namespace Kursovaya
 
         private void addButton(string Login)
         {
-            int y=220;
-            foreach (string file in Directory.EnumerateFiles($"../../users/{Login}/project", "*", SearchOption.AllDirectories))
+            int y=180;
+            foreach (string file in Directory.EnumerateFiles($"users/{Login}/project", "*", SearchOption.AllDirectories))
             {
                 string name = file.Split('#')[1];
                 Button test = new Button();
@@ -217,6 +231,8 @@ namespace Kursovaya
                 test.Size = new Size(260, 30);
                 test.Text = $"{name.Substring(0, name.Length - 4)}";
                 test.BackColor = Color.White;
+                test.Cursor = Cursors.Hand;
+                test.Font = new Font("Srbija Sans", 10);
                 test.MouseClick += project_MouseClick;
                 menu.Controls.Add(test);
             }
@@ -238,7 +254,7 @@ namespace Kursovaya
             addTask.Location = new Point(500, 620);
             addTask.Size = new Size(300, 50);            
             addTask.Text = "Добавить задачу";
-            addTask.Font = new Font("Times New Roman", 16);
+            addTask.Font = new Font("Srbija Sans", 16);
             addTask.BackColor = Color.White;
             addTask.MouseClick += addTask_MouseClick;
             desk.Controls.Add(addTask);
@@ -247,7 +263,7 @@ namespace Kursovaya
             saveTask.Location = new Point(50, 620);
             saveTask.Size = new Size(300, 50);
             saveTask.Text = "Удалить проект";
-            saveTask.Font=  new Font("Times New Roman", 16);
+            saveTask.Font=  new Font("Srbija Sans", 16);
             saveTask.BackColor = Color.White;
             saveTask.MouseClick += DelProject_MouseClick;
             desk.Controls.Add(saveTask);
@@ -255,6 +271,8 @@ namespace Kursovaya
             hat= new Panel();
             hat.Location = new Point(0, 50);
             hat.Size = new Size(ClientSize.Width - menu.Width, ClientSize.Height-100);
+            hat.MouseMove += panel_MouseMove;
+            hat.MouseDown += panel_MouseDown;
             desk.Controls.Add(hat);
 
             Button diagramma = new Button();
@@ -262,6 +280,7 @@ namespace Kursovaya
             diagramma.Size = new Size(120, 30);
             diagramma.Text = "Диаграмма";
             diagramma.BackColor = Color.White;
+            diagramma.Font = new Font("Srbija Sans", 12);
             diagramma.MouseClick += Diagramma_MouseClick;
             desk.Controls.Add(diagramma);
             
@@ -270,15 +289,16 @@ namespace Kursovaya
             spisok.Size = new Size(120, 30);
             spisok.Text = "Список";
             spisok.BackColor = Color.White;
+            spisok.Font = new Font("Srbija Sans", 12);
             spisok.MouseClick += spisok_MouseClick;
             desk.Controls.Add(spisok);
 
-            AddRadioButton(Desserialized(NameProject));
+            AddRadioButton(Desserialized(NameProject),hat);
         }
         private void spisok_MouseClick(object sender, MouseEventArgs e)
         {
             hat.Controls.Clear();
-            AddRadioButton(Desserialized(NameProject));
+            AddRadioButton(Desserialized(NameProject),hat);
         }
         private void Diagramma_MouseClick(object sender, MouseEventArgs e)
         {
@@ -304,12 +324,13 @@ namespace Kursovaya
             ganta.SelectionChanged += ganta_SelectionChanged;
             addrows(NameProject);
         }
-        private void addrows(string Np)
+        private void addrows(string NameProject)
         {
             ganta.ClearSelection();
             int i = 0;
-            MasTasks mt = Desserialized(Np);
+            MasTasks mt = Desserialized(NameProject);
             addColumn(mt);
+            ganta.DefaultCellStyle.Font = new Font("Srbija Sans", 32);
             foreach (Tasks t in mt.ListTasks)
             {
                 ganta.Rows.Add();
@@ -342,7 +363,6 @@ namespace Kursovaya
                 ganta.Columns.Add(column);
             }
         }
-
         private void paintingСells(MasTasks mt)
         {
             Dictionary<string, List<string>> dict = new Dictionary<string, List<string>>();
@@ -421,7 +441,7 @@ namespace Kursovaya
                 ((DataGridView)sender).CurrentCell = null;
         }
 
-        private void AddRadioButton(MasTasks Listtast)
+        private void AddRadioButton(MasTasks Listtast,Panel panel)
         {
             int y = 40;
             foreach(Tasks t in Listtast.ListTasks)
@@ -450,10 +470,9 @@ namespace Kursovaya
                 }
                 rb.Font= new Font("Times New Roman", 14);
                 rb.MouseClick += rb_MouseClick;
-                hat.Controls.Add(rb);
+                panel.Controls.Add(rb);
             }
         }
-
         private void rb_MouseClick(object sender, MouseEventArgs e)
         {
             RadioButton Buf = (RadioButton)sender;
@@ -472,9 +491,7 @@ namespace Kursovaya
             }
             ListTask.ListTasks.Remove(buffer);
             Serealize(ListTask);
-        }
-
-        
+        }        
         private void DelProject_MouseClick(object sender, MouseEventArgs e)
         {            
             if (MessageBox.Show(
@@ -484,7 +501,7 @@ namespace Kursovaya
                 MessageBoxIcon.Information,
                 MessageBoxDefaultButton.Button1) == DialogResult.Yes)
             {
-                File.Delete($@"..\..\users\{Login}\project\#{NameProject}.txt");
+                File.Delete($@"users\{Login}\project\#{NameProject}.txt");
                 MenuForm menu=new MenuForm(Login);
                 this.Close();
                 menu.Show();
@@ -493,8 +510,8 @@ namespace Kursovaya
         private void Serealize(MasTasks Listtas)
         {
             XmlSerializer formatter = new XmlSerializer(typeof(MasTasks));
-            File.Delete($@"..\..\users\{Login}\project\#{NameProject}.txt");
-            using (FileStream fs = new FileStream($@"..\..\users\{Login}\project\#{NameProject}.txt", FileMode.OpenOrCreate,FileAccess.Write))
+            File.Delete($@"users\{Login}\project\#{NameProject}.txt");
+            using (FileStream fs = new FileStream($@"users\{Login}\project\#{NameProject}.txt", FileMode.OpenOrCreate,FileAccess.Write))
             {
                 formatter.Serialize(fs, Listtas);
                 MessageBox.Show("ok");
@@ -504,9 +521,9 @@ namespace Kursovaya
         {
             MasTasks Listtast=new MasTasks();
             XmlSerializer formatter = new XmlSerializer(typeof(MasTasks));
-            using (FileStream fs = new FileStream($@"..\..\users\{Login}\project\#{NameProject}.txt", FileMode.Open))
+            using (FileStream fs = new FileStream($@"users\{Login}\project\#{NameProject}.txt", FileMode.Open))
             {
-                if (new FileInfo($@"..\..\users\{Login}\project\#{NameProject}.txt").Length != 0)
+                if (new FileInfo($@"users\{Login}\project\#{NameProject}.txt").Length != 0)
                 {
                     Listtast = (MasTasks)formatter.Deserialize(fs);
                 }
@@ -528,7 +545,7 @@ namespace Kursovaya
         }
         private void addTask_MouseClick(object sender, MouseEventArgs e)
         {
-            this.Close();
+            
             AddTaskForm AddTask = new AddTaskForm(NameProject,this.Login);
             AddTask.Show();
         }

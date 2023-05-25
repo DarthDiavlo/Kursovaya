@@ -1,4 +1,6 @@
-﻿namespace Kursovaya
+﻿using System.Drawing;
+
+namespace Kursovaya
 {
     partial class registrationForm
     {
@@ -32,7 +34,6 @@
             this.Login = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.check = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.OutBut = new System.Windows.Forms.Button();
             this.RegistrationBut = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -41,6 +42,7 @@
             // 
             // Password
             // 
+            this.Password.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Password.Location = new System.Drawing.Point(160, 271);
             this.Password.Multiline = true;
             this.Password.Name = "Password";
@@ -51,6 +53,7 @@
             // 
             // Login
             // 
+            this.Login.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Login.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.Login.Location = new System.Drawing.Point(160, 167);
             this.Login.Multiline = true;
@@ -62,9 +65,8 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(122)))), ((int)(((byte)(113)))));
             this.panel1.Controls.Add(this.check);
-            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.OutBut);
             this.panel1.Controls.Add(this.RegistrationBut);
             this.panel1.Controls.Add(this.label1);
@@ -80,27 +82,21 @@
             // check
             // 
             this.check.AutoSize = true;
-            this.check.Location = new System.Drawing.Point(236, 135);
+            this.check.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.check.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.check.Location = new System.Drawing.Point(170, 103);
             this.check.Name = "check";
-            this.check.Size = new System.Drawing.Size(148, 16);
+            this.check.Size = new System.Drawing.Size(265, 29);
             this.check.TabIndex = 9;
             this.check.Text = "Такой логин уже есть";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(260, 374);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(44, 16);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "label2";
             // 
             // OutBut
             // 
             this.OutBut.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.OutBut.Location = new System.Drawing.Point(318, 444);
+            this.OutBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.OutBut.Location = new System.Drawing.Point(339, 431);
             this.OutBut.Name = "OutBut";
-            this.OutBut.Size = new System.Drawing.Size(173, 41);
+            this.OutBut.Size = new System.Drawing.Size(213, 54);
             this.OutBut.TabIndex = 7;
             this.OutBut.Text = "Назад";
             this.OutBut.UseVisualStyleBackColor = true;
@@ -113,9 +109,11 @@
             this.RegistrationBut.FlatAppearance.BorderColor = System.Drawing.Color.Red;
             this.RegistrationBut.FlatAppearance.BorderSize = 0;
             this.RegistrationBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RegistrationBut.Location = new System.Drawing.Point(86, 444);
+            this.RegistrationBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.RegistrationBut.ForeColor = System.Drawing.SystemColors.Control;
+            this.RegistrationBut.Location = new System.Drawing.Point(46, 431);
             this.RegistrationBut.Name = "RegistrationBut";
-            this.RegistrationBut.Size = new System.Drawing.Size(173, 41);
+            this.RegistrationBut.Size = new System.Drawing.Size(213, 54);
             this.RegistrationBut.TabIndex = 6;
             this.RegistrationBut.Text = "Регистрация";
             this.RegistrationBut.UseVisualStyleBackColor = false;
@@ -156,7 +154,6 @@
         private System.Windows.Forms.Button OutBut;
         private System.Windows.Forms.Button RegistrationBut;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label check;
     }
 }

@@ -23,7 +23,7 @@ namespace Kursovaya
         }
         private void addProject(string Login)
         {
-            foreach (string file in Directory.EnumerateFiles($"../../users/{Login}/project", "*", SearchOption.AllDirectories))
+            foreach (string file in Directory.EnumerateFiles($"users/{Login}/project", "*", SearchOption.AllDirectories))
             {
                 string name = file.Split('#')[1];
                 ChooseProject.Items.Add($"{name.Substring(0, name.Length - 4)}");
@@ -47,7 +47,7 @@ namespace Kursovaya
             {
                 work+= $"*{it}";
             }
-            using (StreamWriter sw = new StreamWriter($"../../users/{Login}/worker.txt", true,Encoding.Default))
+            using (StreamWriter sw = new StreamWriter($"users/{Login}/worker.txt", true,Encoding.Default))
             {
                 sw.WriteLine(work);                
             }            

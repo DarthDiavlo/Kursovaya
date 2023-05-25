@@ -29,7 +29,7 @@ namespace Kursovaya
         }
         private void AddWorker()
         {
-            StreamReader sr = new StreamReader($@"..\..\users\{login}\worker.txt");
+            StreamReader sr = new StreamReader($@"users\{login}\worker.txt");
             string line;
             string[] mas;
             while ((line = sr.ReadLine()) != null)
@@ -43,7 +43,7 @@ namespace Kursovaya
         }
         private void ButAdd_MouseClick(object sender, MouseEventArgs e)
         {
-            File.Create($@"..\..\users\{login}\project\#{nameproject.Text}.txt").Close();
+            File.Create($@"users\{login}\project\#{nameproject.Text}.txt").Close();
 
             int[] mas = new int[index];
             int indexnew = 0;
@@ -52,7 +52,7 @@ namespace Kursovaya
             string[] masline;
             foreach(string t in workercheck.CheckedItems)
             { 
-                StreamReader sr = new StreamReader($@"..\..\users\{login}\worker.txt");
+                StreamReader sr = new StreamReader($@"users\{login}\worker.txt");
                 while ((line = sr.ReadLine()) != null)
                 {                    
                     masline = line.Split('*');
@@ -76,7 +76,7 @@ namespace Kursovaya
         {
             int i = 0;
             int j = 0;
-            string path = $"../../users/{login}/worker.txt";
+            string path = $"users/{login}/worker.txt";
             string tempPath = path + ".txt";
             using (StreamReader sr = new StreamReader(path)) // читаем
             using (StreamWriter sw = new StreamWriter(tempPath)) // и сразу же пишем во временный файл
@@ -98,7 +98,7 @@ namespace Kursovaya
         }
         
 
-private void nameproject_MouseClick(object sender, MouseEventArgs e)
+        private void nameproject_MouseClick(object sender, MouseEventArgs e)
         {
             nameproject.Clear();
         }

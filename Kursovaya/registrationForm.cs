@@ -19,6 +19,7 @@ namespace Kursovaya
         {
             InitializeComponent();
             check.Hide();
+            StartPosition = FormStartPosition.CenterScreen;
         }
         private void Password_MouseClick(object sender, MouseEventArgs e)
         {
@@ -42,7 +43,7 @@ namespace Kursovaya
             string login = Login.Text;
             string password=Password.Text;
 
-            string filepath = @"..\..\users.txt"; //путь к файлу csv
+            string filepath = @"users.txt"; //путь к файлу csv
             StreamReader sr = new StreamReader(filepath);
             string line;
             string[] mas = new string[2];
@@ -58,9 +59,9 @@ namespace Kursovaya
             sr.Close();
             if (!flag)
             {              
-                Directory.CreateDirectory($@"..\..\users\{login}");
-                Directory.CreateDirectory($@"..\..\users\{login}\project");
-                System.IO.File.Create($@"..\..\users\{login}\worker.txt").Close();
+                Directory.CreateDirectory($@"users\{login}");
+                Directory.CreateDirectory($@"users\{login}\project");
+                System.IO.File.Create($@"users\{login}\worker.txt").Close();
                 using (StreamWriter sw = new StreamWriter(filepath, true,
                 Encoding.Default))
                 {
@@ -74,6 +75,19 @@ namespace Kursovaya
                 await Task.Delay(1000);
                 check.Hide();
             }                
+        }
+        Point lastPoint;
+        private void panel1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                this.Left += e.X - lastPoint.X;
+                this.Top += e.Y - lastPoint.Y;
+            }
+        }
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            lastPoint = new Point(e.X, e.Y);
         }
     }
 }

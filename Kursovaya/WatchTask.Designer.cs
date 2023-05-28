@@ -1,9 +1,6 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
-
-namespace Kursovaya
+﻿namespace Kursovaya
 {
-    partial class MenuForm
+    partial class WatchTask
     {
         /// <summary>
         /// Required designer variable.
@@ -31,21 +28,19 @@ namespace Kursovaya
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuForm));
             this.SuspendLayout();
             // 
-            // MenuForm
+            // WatchTask
             // 
-            resources.ApplyResources(this, "$this");
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "MenuForm";
-            this.Load += new System.EventHandler(this.MenuForm_Load);
+            this.ClientSize = new System.Drawing.Size(450, 650);
+            this.Name = "WatchTask";
+            this.Text = "WatchTask";
+            this.Load += new System.EventHandler(this.WatchTask_Load);
             this.ResumeLayout(false);
 
         }
-
-
-
 
         #endregion
     }

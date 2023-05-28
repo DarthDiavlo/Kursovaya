@@ -101,6 +101,12 @@
       <DependentUpon>registrationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Task.cs" />
+    <Compile Include="WatchTask.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WatchTask.Designer.cs">
+      <DependentUpon>WatchTask.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AddProjectForm.resx">
       <DependentUpon>AddProjectForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -116,6 +122,9 @@
     <EmbeddedResource Include="input.resx">
       <DependentUpon>input.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="input.ru.resx">
+      <DependentUpon>input.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MenuForm.resx">
       <DependentUpon>MenuForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -126,6 +135,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="registrationForm.resx">
       <DependentUpon>registrationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WatchTask.resx">
+      <DependentUpon>WatchTask.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

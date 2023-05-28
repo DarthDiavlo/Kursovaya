@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Threading;
-using System.Xml.Linq;
 
 namespace Kursovaya
 {
@@ -39,42 +32,42 @@ namespace Kursovaya
         }
 
         private async void RegistrationBut_MouseClick(object sender, MouseEventArgs e)
-        {          
+        {
             string login = Login.Text;
-            string password=Password.Text;
+            string password = Password.Text;
 
             string filepath = @"users.txt"; //путь к файлу csv
             StreamReader sr = new StreamReader(filepath);
             string line;
             string[] mas = new string[2];
-            bool flag=false;
+            bool flag = false;
             while ((line = sr.ReadLine()) != null)
             {
                 mas = line.Split(',');
-                if (mas[0] == login) 
-                { 
+                if (mas[0] == login)
+                {
                     flag = true;
                 }
             }
             sr.Close();
             if (!flag)
-            {              
+            {
                 Directory.CreateDirectory($@"users\{login}");
                 Directory.CreateDirectory($@"users\{login}\project");
-                System.IO.File.Create($@"users\{login}\worker.txt").Close();
+                File.Create($@"users\{login}\worker.txt").Close();
                 using (StreamWriter sw = new StreamWriter(filepath, true,
-                Encoding.Default))
+                Encoding.UTF8))
                 {
                     sw.WriteLine($"{login},{password}");
                 }
                 MessageBox.Show("успешно");
             }
-            else 
+            else
             {
                 check.Show();
                 await Task.Delay(1000);
                 check.Hide();
-            }                
+            }
         }
         Point lastPoint;
         private void panel1_MouseMove(object sender, MouseEventArgs e)

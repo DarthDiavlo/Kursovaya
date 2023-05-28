@@ -43,7 +43,7 @@ namespace Kursovaya
             // Password
             // 
             this.Password.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Password.Location = new System.Drawing.Point(160, 271);
+            this.Password.Location = new System.Drawing.Point(161, 274);
             this.Password.Multiline = true;
             this.Password.Name = "Password";
             this.Password.Size = new System.Drawing.Size(293, 30);
@@ -55,7 +55,7 @@ namespace Kursovaya
             // 
             this.Login.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Login.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.Login.Location = new System.Drawing.Point(160, 167);
+            this.Login.Location = new System.Drawing.Point(161, 189);
             this.Login.Multiline = true;
             this.Login.Name = "Login";
             this.Login.Size = new System.Drawing.Size(293, 30);
@@ -84,11 +84,11 @@ namespace Kursovaya
             this.check.AutoSize = true;
             this.check.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.check.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.check.Location = new System.Drawing.Point(170, 103);
+            this.check.Location = new System.Drawing.Point(137, 100);
             this.check.Name = "check";
-            this.check.Size = new System.Drawing.Size(265, 29);
+            this.check.Size = new System.Drawing.Size(345, 29);
             this.check.TabIndex = 9;
-            this.check.Text = "Такой логин уже есть";
+            this.check.Text = "Такой логин уже существует";
             // 
             // OutBut
             // 

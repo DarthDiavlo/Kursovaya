@@ -15,6 +15,10 @@ namespace Kursovaya
     public partial class AddWorkerForm : Form
     {
         public string Login;
+        public AddWorkerForm()
+        {
+            InitializeComponent();
+        }
         public AddWorkerForm(string login)
         {
             InitializeComponent();
@@ -47,7 +51,7 @@ namespace Kursovaya
             {
                 work+= $"*{it}";
             }
-            using (StreamWriter sw = new StreamWriter($"users/{Login}/worker.txt", true,Encoding.Default))
+            using (StreamWriter sw = new StreamWriter($"users/{Login}/worker.txt", true,Encoding.UTF8))
             {
                 sw.WriteLine(work);                
             }            

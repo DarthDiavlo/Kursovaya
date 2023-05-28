@@ -34,7 +34,6 @@ namespace Kursovaya
         {
             Application.Exit();
         }
-
         private void button1_MouseClick(object sender, MouseEventArgs e)
         {
             this.Hide();
@@ -60,7 +59,6 @@ namespace Kursovaya
             sr.Close();
             return "0";
         }
-
         private  async void button_input_MouseClick(object sender, MouseEventArgs e)
         {
             string login = Login.Text;

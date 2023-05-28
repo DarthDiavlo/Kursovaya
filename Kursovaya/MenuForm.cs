@@ -26,6 +26,7 @@ namespace Kursovaya
         Panel desk;
         Panel hat;
         DataGridView ganta;
+
         public string NameProject;
         public MenuForm(string login)
         {
@@ -105,19 +106,11 @@ namespace Kursovaya
             task.MouseClick += MyTask_MouseClick;
             menu.Controls.Add(task);
 
-            // отчёты
-            /*Button reports = new Button();
-            reports.Location = new Point(20, 140);
-            reports.Size = new Size(260, 30);
-            reports.Text = "отчёты";
-            reports.BackColor = Color.White;
-            menu.Controls.Add(reports);*/
-
             // команда
             Button team = new Button();
             team.Location = new Point(20, 140);
             team.Size = new Size(260, 30);
-            team.Text = "команда";
+            team.Text = "Команда";
             team.Font = new Font("Srbija Sans", 10);
             team.BackColor = Color.White;
             team.Cursor = Cursors.Hand;
@@ -138,7 +131,7 @@ namespace Kursovaya
             {
                 foreach(Tasks t in Desserialized(file, 0).ListTasks)
                 {
-                    if (t.worker=="Выбор сотрудника")
+                    if (t.worker=="Я")
                     {
                         tasks.ListTasks.Add(t);
                     }
@@ -149,7 +142,6 @@ namespace Kursovaya
         private void TeamAdd_MouseClick(object sender, MouseEventArgs e)
         {
             desk.Controls.Clear();
-
             Button addTask = new Button();
             addTask.Location = new Point(500, 620);
             addTask.Size = new Size(300, 50);
@@ -217,17 +209,10 @@ namespace Kursovaya
             foreach (string file in Directory.EnumerateFiles($"users/{Login}/project", "*", SearchOption.AllDirectories))
             {
                 string name = file.Split('#')[1];
-                Button test = new Button();
-                
+                Button test = new Button();                
                 test.Location = new Point(20, y);
-                if (y < 500)
-                {
-                    y += 40;
-                }
-                else
-                {
-                    y = 515;
-                }
+                if (y < 500) {y += 40;}
+                else {y = 515;} 
                 test.Size = new Size(260, 30);
                 test.Text = $"{name.Substring(0, name.Length - 4)}";
                 test.BackColor = Color.White;
@@ -327,7 +312,15 @@ namespace Kursovaya
         private void addrows(string NameProject)
         {
             ganta.ClearSelection();
-            int i = 0;
+            int i = 0;            
+            if (new FileInfo($@"users\{Login}\project\#{NameProject}.txt").Length == 0)
+            {
+                MessageBox.Show("Сначала добавьте задачу",
+                    "Ошибка",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
             MasTasks mt = Desserialized(NameProject);
             addColumn(mt);
             ganta.DefaultCellStyle.Font = new Font("Srbija Sans", 32);
@@ -341,6 +334,7 @@ namespace Kursovaya
         }
         private void addColumn(MasTasks mt)
         {
+
             int i = 0;
             DateTime[] mas = new DateTime[mt.ListTasks.Count()];
             DateTime[] masSt = new DateTime[mt.ListTasks.Count()];
@@ -354,7 +348,7 @@ namespace Kursovaya
             sorting(masSt, masSt.Length);
             List<DateTime> allDates = new List<DateTime>();
             for (DateTime date = masSt[0].Date; date <= mas[masSt.Length - 1].Date; date = date.AddDays(1))
-            { allDates.Add(date); }
+            { allDates.Add(date);}
             foreach (DateTime t in allDates)
             {
                 DataGridViewColumn column = new DataGridViewColumn();
@@ -441,22 +435,16 @@ namespace Kursovaya
                 ((DataGridView)sender).CurrentCell = null;
         }
 
+        List<PictureBox> masplus= new List<PictureBox>();
         private void AddRadioButton(MasTasks Listtast,Panel panel)
         {
             int y = 40;
             foreach(Tasks t in Listtast.ListTasks)
             {
                 RadioButton rb= new RadioButton();
+                rb.Tag= t;
                 rb.Location = new Point(50,y);
-                rb.Size = new Size(800,40);
-                if (y < 500)
-                {
-                    y += 30;
-                }
-                else
-                {
-                    y = 515;
-                }                
+                rb.Size = new Size(500,40);                             
                 rb.Text= t.Writer();
                 switch (t.level)
                 {
@@ -471,8 +459,42 @@ namespace Kursovaya
                 rb.Font= new Font("Times New Roman", 14);
                 rb.MouseClick += rb_MouseClick;
                 panel.Controls.Add(rb);
+                PictureBox more= new PictureBox();
+                more.Size = new Size(20, 20);
+                more.Tag = t;
+                more.Location = new Point(810, y);
+                more.SizeMode = PictureBoxSizeMode.StretchImage;
+                more.ImageLocation = @"images\plus.png";
+                more.Cursor = Cursors.Hand;
+                more.MouseClick += More_MouseClick;
+                more.MouseHover += More_MouseHover;
+                more.MouseLeave += More_MouseLeave;
+                masplus.Add(more);
+                panel.Controls.Add(more);
+                if (y < 500) { y += 32;}
+                else {y = 515;}
             }
         }
+
+        private void More_MouseLeave(object sender, EventArgs e)
+        {
+            (sender as PictureBox).Size = new Size(20, 20);
+            (sender as PictureBox).Refresh();
+        }
+
+        private void More_MouseHover(object sender, EventArgs e)
+        {
+            (sender as PictureBox).Size = new Size(25,25);
+            (sender as PictureBox).Refresh();
+        }
+
+        private void More_MouseClick(object sender, MouseEventArgs e)
+        {
+            PictureBox buf = (PictureBox)sender;
+            WatchTask watchTask = new WatchTask(NameProject, Login, (Tasks)buf.Tag);
+            watchTask.Show();
+        }
+
         private void rb_MouseClick(object sender, MouseEventArgs e)
         {
             RadioButton Buf = (RadioButton)sender;
@@ -483,10 +505,20 @@ namespace Kursovaya
             Tasks buffer= new Tasks();
             foreach (Tasks t in ListTask.ListTasks)
             {               
-                if (String.Equals(t.Name, mas[0]) && String.Equals(t.worker, mas[1]) && String.Equals(t.date.ToString("dd/MM/yyyy"), mas[2]))
-                {                    
+                if ((t.Name==mas[0]) && (t.worker== mas[1]) && (t.date.ToString("dd/MM/yyyy")== mas[2]))
+                {  
+                    foreach(PictureBox p in masplus)
+                    {
+                        if (Tasks.Equals((Tasks)p.Tag, t))
+                        {
+                            Console.WriteLine("ded");
+                            p.Dispose();
+                            masplus.Remove(p);
+                        }
+                    }
                     buffer= t;                   
                     Buf.Dispose();
+
                 }
             }
             ListTask.ListTasks.Remove(buffer);

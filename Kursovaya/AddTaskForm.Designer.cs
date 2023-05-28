@@ -1,4 +1,6 @@
-﻿namespace Kursovaya
+﻿using System.Drawing;
+
+namespace Kursovaya
 {
     partial class AddTaskForm
     {
@@ -34,7 +36,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(459, 571);
+            this.ClientSize = new System.Drawing.Size(450, 650);
             this.Name = "AddTaskForm";
             this.Text = "AddTaskForm";
             this.Load += new System.EventHandler(this.AddTaskForm_Load);

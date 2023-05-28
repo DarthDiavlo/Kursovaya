@@ -44,7 +44,6 @@ namespace Kursovaya
         private void ButAdd_MouseClick(object sender, MouseEventArgs e)
         {
             File.Create($@"users\{login}\project\#{nameproject.Text}.txt").Close();
-
             int[] mas = new int[index];
             int indexnew = 0;
             int j=0;

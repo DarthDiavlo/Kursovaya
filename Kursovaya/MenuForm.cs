@@ -161,10 +161,10 @@ namespace Kursovaya
                 masname = line.Split('*');
                 Label name= new Label();
                 name.Location = new Point(50, y);
-                name.Size = new Size(800, 20);
+                name.Size = new Size(800, 25);
                 if (y < 500)
                 {
-                    y += 25;
+                    y += 30;
                 }
                 else
                 {
@@ -435,14 +435,15 @@ namespace Kursovaya
                 ((DataGridView)sender).CurrentCell = null;
         }
 
-        List<PictureBox> masplus= new List<PictureBox>();
+        List<PictureBox> masplus;
         private void AddRadioButton(MasTasks Listtast,Panel panel)
         {
+            masplus = new List<PictureBox>();
             int y = 40;
             foreach(Tasks t in Listtast.ListTasks)
             {
                 RadioButton rb= new RadioButton();
-                rb.Tag= t;
+                rb.Name = $"{y}";
                 rb.Location = new Point(50,y);
                 rb.Size = new Size(500,40);                             
                 rb.Text= t.Writer();
@@ -461,6 +462,7 @@ namespace Kursovaya
                 panel.Controls.Add(rb);
                 PictureBox more= new PictureBox();
                 more.Size = new Size(20, 20);
+                more.Name= $"{y}";
                 more.Tag = t;
                 more.Location = new Point(810, y);
                 more.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -471,6 +473,8 @@ namespace Kursovaya
                 more.MouseLeave += More_MouseLeave;
                 masplus.Add(more);
                 panel.Controls.Add(more);
+
+
                 if (y < 500) { y += 32;}
                 else {y = 515;}
             }
@@ -506,19 +510,18 @@ namespace Kursovaya
             foreach (Tasks t in ListTask.ListTasks)
             {               
                 if ((t.Name==mas[0]) && (t.worker== mas[1]) && (t.date.ToString("dd/MM/yyyy")== mas[2]))
-                {  
+                {                      
+                    buffer= t;
                     foreach(PictureBox p in masplus)
                     {
-                        if (Tasks.Equals((Tasks)p.Tag, t))
+                        if (p.Name==Buf.Name)
                         {
-                            Console.WriteLine("ded");
                             p.Dispose();
                             masplus.Remove(p);
+                            break;
                         }
                     }
-                    buffer= t;                   
                     Buf.Dispose();
-
                 }
             }
             ListTask.ListTasks.Remove(buffer);
@@ -546,7 +549,6 @@ namespace Kursovaya
             using (FileStream fs = new FileStream($@"users\{Login}\project\#{NameProject}.txt", FileMode.OpenOrCreate,FileAccess.Write))
             {
                 formatter.Serialize(fs, Listtas);
-                MessageBox.Show("ok");
             }                     
         }
         private MasTasks Desserialized(string NameProject)
